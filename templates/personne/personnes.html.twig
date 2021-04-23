@@ -14,27 +14,33 @@
                         {{ personne.nom }}
                     </a>
                 </h2>
-                <div class="row">
-                    <div class="col-12 p-4">Liste des animaux possédés :</div>
+                {% if personne.disposes|length > 0 %}
+                    <div class="row">
+                        <div class="col-12 p-4">Liste des animaux possédés :</div>
+                        
                     
-                
-                    {% for dispose in personne.disposes %}
-                        <div class="col-4">
-                            <img src="{{ asset('images/' ~ dispose.animal.image ) }}" />
-                        </div>
+                        {% for dispose in personne.disposes %}
+                            <div class="col-4">
+                                <img src="{{ asset('images/' ~ dispose.animal.image ) }}" />
+                            </div>
 
-                        <div class="col-8">
-                            <h3>
-                                <a href="{{ path('afficher_animal', {'id' : dispose.animal.id}) }}">
-                                    {{ dispose.animal.nom }}
-                                </a>
-                            </h3>
-                            Nombre : {{ dispose.nb }}
-                        </div>
-                        
-                        
-                    {% endfor %}
-                </div>
+                            <div class="col-8">
+                                <h3>
+                                    <a href="{{ path('afficher_animal', {'id' : dispose.animal.id}) }}">
+                                        {{ dispose.animal.nom }}
+                                    </a>
+                                </h3>
+                                Nombre : {{ dispose.nb }}
+                            </div>
+                            
+                            
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <div class="row">
+                        <div class="col-12 p-4">Ne dispose d'aucun animal</div>
+                    </div>
+                {% endif %}
             </div>
         </div>
         <hr />

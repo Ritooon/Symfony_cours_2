@@ -40,16 +40,18 @@
                                         {% endfor %}
                                     </div>
                                 </div>
-                                <div>
-                                    <p>Personnes possédant cet animal :</p>
+                                {% if animal.disposes|length > 0 %}
                                     <div>
-                                        {% for dispose in animal.disposes %}
-                                        <a class="btn btn-secondary" href="{{ path('afficher_personne', {'id':dispose.personne.id}) }}">
-                                            {{ dispose.personne.nom }}
-                                        </a>
-                                        {% endfor %}
+                                        <p>Personnes possédant cet animal :</p>
+                                        <div>
+                                            {% for dispose in animal.disposes %}
+                                            <a class="btn btn-secondary" href="{{ path('afficher_personne', {'id':dispose.personne.id}) }}">
+                                                {{ dispose.personne.nom }}
+                                            </a>
+                                            {% endfor %}
+                                        </div>
                                     </div>
-                                </div>
+                                {% endif %}
                             </div>
                         </div>
                     </div>                 

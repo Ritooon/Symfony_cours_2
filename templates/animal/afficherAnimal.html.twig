@@ -38,6 +38,15 @@
                     {{ continent.libelle }}
                 </a>
             {% endfor %}
+
+            {% if animal.disposes|length > 0 %}
+                <h2>Personnes possédant cet animal</h2>
+                {% for dispose in animal.disposes %}
+                    <a class="btn btn-secondary" href="{{ path('afficher_personne', {'id':dispose.personne.id}) }}">
+                        {{ dispose.personne.nom }}
+                    </a>
+                {% endfor %}
+            {% endif %}
         </div>
     </div>
 
