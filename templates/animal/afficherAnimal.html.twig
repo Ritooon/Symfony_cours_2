@@ -31,6 +31,13 @@
             <a class="btn btn-info" href="{{ path('afficher_famille', {'id':animal.famille.id}) }}">
                 {{ animal.famille.libelle }}
             </a>
+
+            <h2>Présence sur les continents</h2>
+            {% for continent in animal.continents %}
+                <a class="btn btn-warning" href="{{ path('afficher_continent', {'id':continent.id}) }}">
+                    {{ continent.libelle }}
+                </a>
+            {% endfor %}
         </div>
     </div>
 

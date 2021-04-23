@@ -1,21 +1,22 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Familles{% endblock %}
-{% block titrePage %}Liste des familles {% endblock %}
+{% block title %}Continents{% endblock %}
+{% block titrePage %}Liste des continents {% endblock %}
 
 {% block body %}
 
-    {% for famille in familles %}
+    {% for continent in continents %}
         <div class="row justify-content-md-center">
             <div class="col-11">
-                <h2>{{famille.libelle}}</h2>
-                <div>{{famille.description}}</div>
+                <h2>
+                    <a href="{{ path('afficher_continent', {'id':continent.id}) }}" >{{continent.libelle}}</a>
+                </h2>
 
                 <br />
 
                 <div class="row">
-                    {% for animal in famille.animaux %}
-                        <div class="col-12 col-md-6">
+                    {% for animal in continent.animaux %}
+                        <div class="col-12 col-md-6 p-2">
                             <div class="row align-items-center">
                                 <div class="col-5 text-center">
                                     <img src="{{ asset('images/' ~ animal.image ) }}" class="img-fluid" />
@@ -28,17 +29,20 @@
                                     </h2>
                                     <div>{{ animal.description }}</div>
                                     <div>
-                                        <a class="btn btn-info" href="{{ path('afficher_famille', {'id':famille.id}) }}">
+                                        <a class="btn btn-info" href="{{ path('afficher_famille', {'id':animal.famille.id}) }}">
                                             {{ animal.famille.libelle }}
                                         </a>
                                     </div>
+
                                     <div>
-                                        <p>Présent sur les continents :</p>
+                                        <p>Présent sur les autres continents :</p>
                                         <div>
-                                            {% for continent in animal.continents %}
-                                                <a class="btn btn-warning" href="{{ path('afficher_continent', {'id':continent.id}) }}">
-                                                    {{ continent.libelle }}
-                                                </a>
+                                            {% for continentAnimal in animal.continents %}
+                                                {% if continentAnimal.id != continent.id %}
+                                                    <a class="btn btn-warning" href="{{ path('afficher_continent', {'id':continentAnimal.id}) }}">
+                                                        {{ continentAnimal.libelle }}
+                                                    </a>
+                                                {% endif %}
                                             {% endfor %}
                                         </div>
                                     </div>
@@ -57,7 +61,6 @@
                         </div>                 
                     {% endfor %}
                 </div>
-
                 <hr />
             </div>
         </div>

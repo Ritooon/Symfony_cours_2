@@ -7,7 +7,7 @@
 {% block body %}
 
     {% for animal in animaux %}
-        <div class="row align-items-center">
+        <div class="row align-items-center m-4">
             <div class="col-2 text-center">
                 <img src="{{ asset('images/' ~ animal.image ) }}" />
             </div>
@@ -23,8 +23,29 @@
                         {{ animal.famille.libelle }}
                     </a>
                 </div>
+                <div>
+                    <p>Présent sur les continents :</p>
+                    <div>
+                        {% for continent in animal.continents %}
+                            <a class="btn btn-warning" href="{{ path('afficher_continent', {'id':continent.id}) }}">
+                                {{ continent.libelle }}
+                            </a>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div>
+                    <p>Personnes possédant cet animal :</p>
+                    <div>
+                        {% for dispose in animal.disposes %}
+                        <a class="btn btn-secondary" href="{{ path('afficher_personne', {'id':dispose.personne.id}) }}">
+                            {{ dispose.personne.nom }}
+                        </a>
+                        {% endfor %}
+                    </div>
+                </div>
             </div>
         </div>
+
     {% endfor %}
 
 {% endblock %}

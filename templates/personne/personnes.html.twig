@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Personnes{% endblock %}
+
+{% block titrePage %}Liste des personnes{% endblock %}
+
+{% block body %}
+
+    {% for personne in personnes %}
+        <div class="row align-items-center m-4">
+            <div class="col-auto">
+                <h2>
+                    <a href="{{ path('afficher_personne', {'id' : personne.id}) }}">
+                        {{ personne.nom }}
+                    </a>
+                </h2>
+                <div class="row">
+                    <div class="col-12 p-4">Liste des animaux possédés :</div>
+                    
+                
+                    {% for dispose in personne.disposes %}
+                        <div class="col-4">
+                            <img src="{{ asset('images/' ~ dispose.animal.image ) }}" />
+                        </div>
+
+                        <div class="col-8">
+                            <h3>
+                                <a href="{{ path('afficher_animal', {'id' : dispose.animal.id}) }}">
+                                    {{ dispose.animal.nom }}
+                                </a>
+                            </h3>
+                            Nombre : {{ dispose.nb }}
+                        </div>
+                        
+                        
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <hr />
+    {% endfor %}
+
+{% endblock %}

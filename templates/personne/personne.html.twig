@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{personne.nom}}{% endblock %}
+{% block titrePage %}Animaux de {{personne.nom}} {% endblock %}
+
+{% block body %}
+
+<div class="row">
+    {% for dispose in personne.disposes %}
+        <div class="col-12 col-md-6">
+            <div class="row align-items-center">
+                <div class="col-5 text-center">
+                    <img src="{{ asset('images/' ~ dispose.animal.image ) }}" class="img-fluid" />
+                </div>
+                <div class="col">
+                    <h2>
+                        <a href="{{ path('afficher_animal', {'id' : dispose.animal.id}) }}">
+                            {{dispose.nb}} x {{ dispose.animal.nom }}
+                        </a>
+                    </h2>
+                    <div>{{ dispose.animal.description }}</div>
+                    <div>
+                        <a class="btn btn-info" href="{{ path('afficher_famille', {'id':dispose.animal.famille.id}) }}">
+                            {{ dispose.animal.famille.libelle }}
+                        </a>
+                    </div>
+
+                    <div>
+                        <p>Présent sur les continents :</p>
+                        <div>
+                            {% for continent in dispose.animal.continents %}
+                                <a class="btn btn-warning" href="{{ path('afficher_continent', {'id':continent.id}) }}">
+                                    {{ continent.libelle }}
+                                </a>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% if dispose.animal.disposes|length > 1 %}
+                        <div>
+                            <p>Autres personnes possédant cet animal :</p>
+                            <div>
+                                {% for dispose in dispose.animal.disposes %}
+                                    {% if dispose.personne.id != personne.id %}
+                                        <a class="btn btn-secondary" href="{{ path('afficher_personne', {'id':dispose.personne.id}) }}">
+                                            {{ dispose.personne.nom }}
+                                        </a>
+                                    {% endif %}                            
+                                {% endfor %}
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>                 
+    {% endfor %}
+</div>
+
+{% endblock %}
